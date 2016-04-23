@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,8 +9,7 @@ namespace tomography
 {
     class Gauss
     {
-
-        private static double EPSILON = 1e-10;
+        private static double EPSILON = 1e-8;
 
         public static double[] solve(double[][] A, double[] b)
         {
@@ -27,8 +27,8 @@ namespace tomography
                         max = i;
                     }
                 }
-                double[] temp = (double[]) A.GetValue(p);
-                A.SetValue((double[]) A.GetValue(max), p);
+                double[] temp = A[p];
+                A.SetValue(A[max], p);
                 A.SetValue(temp, max);
                 double t = b[p];
                 b[p] = b[max];

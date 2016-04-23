@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,7 +36,6 @@ namespace tomography.math
             double distance = m * size;
             int iCount = 0;
             int jCount = 0;
-
             for (int i = 0; i < n; i++)
             {
                 double center = i * size + (size / 2);
@@ -54,9 +54,7 @@ namespace tomography.math
 
         private static double[][] calculate(Rectangle[] rectangles, Line[] lines, int n, int m, double size)
         {
-
             double[][] matrix = Matrix.initMatrix(n * n, n * m);
-
 
             for (int i = 0; i < rectangles.Length; i++)
             {
@@ -77,13 +75,12 @@ namespace tomography.math
             }
 
             double[][] tMatrix = Matrix.transpose(matrix);
-            double[][] newMatrix = Matrix.multiply(tMatrix, matrix);
-            double[] newVector = Matrix.multiply(tMatrix, vector);
+            double[][] newMatrix = Matrix.multiplyParallel(tMatrix, matrix);
+            double[] newVector = Matrix.multiply(tMatrix, vector);            
             newMatrix = Matrix.addToMainDiag(newMatrix, 0.01);
-
             
             double[] values = Gauss.solve(newMatrix, newVector);
-
+            
             return Matrix.rowToMatrix(values, n, m);
         }
 

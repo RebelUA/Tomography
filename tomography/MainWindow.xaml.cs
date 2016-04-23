@@ -17,7 +17,7 @@ namespace tomography
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
         public static int n = 20;
-        public static int m = 5;
+        public static int m = 20;
 
 
         private nzy3D.Chart.Controllers.Thread.Camera.CameraThreadController t;
@@ -64,9 +64,9 @@ namespace tomography
 
             // Create a range for the graph generation
             Range xRange = new Range(0, n * 50 - 1);
-            int xSteps = n * 2;
+            int xSteps = System.Math.Min(n * 2, 30);
             Range yRange = new Range(0, m * 50 - 1);
-            int ySteps = m * 2;
+            int ySteps = System.Math.Min(m * 2, 30);
 
             // Build a nice surface to display with cool alpha colors 
             // (alpha 0.8 for surface color and 0.5 for wireframe)

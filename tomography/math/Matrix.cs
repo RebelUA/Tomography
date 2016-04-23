@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using tomography.math;
 
 namespace tomography
 {
@@ -79,6 +80,26 @@ namespace tomography
                     for (int k = 0; k < mA; k++)
                         C[i][j] += A[i][k] * B[k][j];
             return C;
+        }
+
+        public static double[][] multiplyParallel(double[][] A, double[][] B)
+        {
+            int aRows = A.Length; int aCols = A[0].Length;
+            int bRows = B.Length; int bCols = B[0].Length;
+            if (aCols != bRows)
+                throw new Exception("Incorrect dimensions");
+
+            double[][] result = initMatrix(aRows, bCols);
+
+            Parallel.For(0, aRows, i =>
+            {
+                for (int j = 0; j < bCols; ++j)
+                    for (int k = 0; k < aCols; ++k)
+                        result[i][j] += A[i][k] * B[k][j];
+            }
+            );
+
+            return result;
         }
 
         public static double[][] initMatrix(int n, int m)
