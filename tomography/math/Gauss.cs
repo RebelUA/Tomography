@@ -9,7 +9,7 @@ namespace tomography
 {
     class Gauss
     {
-        private static double EPSILON = 1e-8;
+        private static double EPSILON = 1e-10;
 
         public static double[] solve(double[][] A, double[] b)
         {

@@ -77,7 +77,7 @@ namespace tomography.math
             double[][] tMatrix = Matrix.transpose(matrix);
             double[][] newMatrix = Matrix.multiplyParallel(tMatrix, matrix);
             double[] newVector = Matrix.multiply(tMatrix, vector);            
-            newMatrix = Matrix.addToMainDiag(newMatrix, 0.01);
+            Matrix.addToMainDiag(newMatrix, 0.01);
             
             double[] values = Gauss.solve(newMatrix, newVector);
             

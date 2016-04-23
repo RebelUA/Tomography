@@ -21,23 +21,12 @@ namespace tomography
             return temp;
         }
 
-        public static double[][] addToMainDiag(double[][] A, double value)
+        public static void addToMainDiag(double[][] A, double value)
         {
             for (int j = 0; j < Math.Min(A.Length, A[0].Length); j++)
             {
                 A[j][j] += value;
             }
-            return A;
-        }
-
-        public static double[][] E(int size)
-        {
-            double[][] temp = initMatrix(size, size);
-            for (int i = 0; i < size; i++)
-            {
-                temp[i][i] = 1;
-            }
-            return temp;
         }
 
         public static double[][] multiply(double[][] m, double value)
@@ -55,7 +44,7 @@ namespace tomography
             int n = A[0].Length;
             if (B.Length != n)
             {
-                return null;
+                throw new Exception("Incorrect dimensions");
             }
             double[] y = new double[m];
             for (int i = 0; i < m; i++)
@@ -66,28 +55,34 @@ namespace tomography
 
         public static double[][] multiply(double[][] A, double[][] B)
         {
-            int nA = A.Length;
-            int mA = A[0].Length;
-            int nB = B.Length;
-            int mB = B[0].Length;
-            if (mA != nB)
+            int aRows = A.Length;
+            int aCols = A[0].Length;
+            int bRows = B.Length;
+            int bCols = B[0].Length;
+            if (aCols != bRows)
             {
-                return null;
+                throw new Exception("Incorrect dimensions");
             }
-            double[][] C = initMatrix(nA, mB);
-            for (int i = 0; i < nA; i++)
-                for (int j = 0; j < mB; j++)
-                    for (int k = 0; k < mA; k++)
-                        C[i][j] += A[i][k] * B[k][j];
-            return C;
+
+            double[][] result = initMatrix(aRows, bCols);
+
+            for (int i = 0; i < aRows; ++i) // each row of A
+                for (int j = 0; j < bCols; ++j) // each col of B
+                    for (int k = 0; k < aCols; ++k) // could use k < bRows
+                        result[i][j] += A[i][k] * B[k][j];
+            return result;
         }
 
         public static double[][] multiplyParallel(double[][] A, double[][] B)
         {
-            int aRows = A.Length; int aCols = A[0].Length;
-            int bRows = B.Length; int bCols = B[0].Length;
+            int aRows = A.Length;
+            int aCols = A[0].Length;
+            int bRows = B.Length;
+            int bCols = B[0].Length;
             if (aCols != bRows)
+            {
                 throw new Exception("Incorrect dimensions");
+            }
 
             double[][] result = initMatrix(aRows, bCols);
 
