@@ -1,10 +1,10 @@
-﻿using nzy3d_wpfDemo.math;
+﻿using tomography.math;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace nzy3d_wpfDemo
+namespace tomography
 {
     class ExpMapper : nzy3D.Plot3D.Builder.Mapper
     {

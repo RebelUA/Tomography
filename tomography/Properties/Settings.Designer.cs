@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace nzy3d_wpfDemo.Properties
+namespace tomography.Properties
 {
 
 

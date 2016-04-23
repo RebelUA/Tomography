@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace nzy3d_wpfDemo
+namespace tomography
 {
     /// <summary>
     /// Interaction logic for App.xaml

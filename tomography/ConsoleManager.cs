@@ -8,7 +8,7 @@ using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace nzy3d_wpfDemo
+namespace tomography
 {
     [SuppressUnmanagedCodeSecurity]
     public static class ConsoleManager

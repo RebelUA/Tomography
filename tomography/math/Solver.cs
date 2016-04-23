@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace nzy3d_wpfDemo.math
+namespace tomography.math
 {
     class Solver
     {
@@ -25,22 +25,27 @@ namespace nzy3d_wpfDemo.math
 
         public static double[][] solve(int n, int m, int k)
         {
-            int nm = n * n;
+            int nm = n * m;
+            int nn = n * n;
             double size = 50;
 
             Rectangle[] rectangles = new Rectangle[nm];
-            Line[] lines = new Line[nm];
+            Line[] lines = new Line[nn];
 
-            double distance = n * size;
-            int count = 0;
+            double distance = m * size;
+            int iCount = 0;
+            int jCount = 0;
 
             for (int i = 0; i < n; i++)
             {
                 double center = i * size + (size / 2);
+                for (int j = 0; j < m; j++)
+                {
+                    rectangles[iCount++] = new Rectangle(i * size, j * size, size, size);
+                }
                 for (int j = 0; j < n; j++)
                 {
-                    rectangles[count] = new Rectangle(i * size, j * size, size, size);
-                    lines[count++] = new Line(center, 0, j * size + (size / 2), distance);
+                    lines[jCount++] = new Line(center, 0, j * size + (size / 2), distance);
                 }
             }
             intersect(rectangles, lines, n, m, size);
@@ -50,12 +55,12 @@ namespace nzy3d_wpfDemo.math
         private static double[][] calculate(Rectangle[] rectangles, Line[] lines, int n, int m, double size)
         {
 
-            double[][] matrix = Matrix.initMatrix(n * n, n * n);
+            double[][] matrix = Matrix.initMatrix(n * n, n * m);
 
 
-            for (int i = 0; i < lines.Length; i++)
+            for (int i = 0; i < rectangles.Length; i++)
             {
-                for (int j = 0; j < rectangles.Length; j++)
+                for (int j = 0; j < lines.Length; j++)
                 {
                     Line line = lines[j];
                     double length = line.getIntersectionsLength(rectangles[i]);
@@ -74,19 +79,12 @@ namespace nzy3d_wpfDemo.math
             double[][] tMatrix = Matrix.transpose(matrix);
             double[][] newMatrix = Matrix.multiply(tMatrix, matrix);
             double[] newVector = Matrix.multiply(tMatrix, vector);
-            double[][] eMatrix = Matrix.E(n * n);
-            eMatrix = Matrix.multiply(eMatrix, 0.001);
-            newMatrix = Matrix.add(newMatrix, eMatrix);
+            newMatrix = Matrix.addToMainDiag(newMatrix, 0.01);
 
             
             double[] values = Gauss.solve(newMatrix, newVector);
 
-            return Matrix.rowToMatrix(values, n);
-        }
-
-        private static double percentage(double a, double b)
-        {
-            return Math.Abs((a - b) / ((a + b) / 2)) * 100;
+            return Matrix.rowToMatrix(values, n, m);
         }
 
         private static double multiply(double[] a, double[] b)
@@ -101,7 +99,7 @@ namespace nzy3d_wpfDemo.math
 
         private static void intersect(Rectangle[] rectangles, Line[] lines, int n, int m, double size)
         {
-            for (int i = 0; i < n * n; i++)
+            for (int i = 0; i < n * m; i++)
             {
                 for (int j = 0; j < n * n; j++)
                 {
@@ -159,7 +157,6 @@ namespace nzy3d_wpfDemo.math
             {
                 return null;
             }
-
 
             double cline1 = c(line1);
             double cline2 = c(line2);

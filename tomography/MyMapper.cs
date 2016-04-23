@@ -1,10 +1,10 @@
-﻿using nzy3d_wpfDemo.math;
+﻿using tomography.math;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace nzy3d_wpfDemo
+namespace tomography
 {
     class MyMapper : nzy3D.Plot3D.Builder.Mapper
     {
@@ -16,10 +16,12 @@ namespace nzy3d_wpfDemo
         {
             if (!inited)
             {
-                double[][] experiment = Solver.buildExperiment(10, 3000);
+                int n = MainWindow.n;
+                int m = MainWindow.m;
+                double[][] experiment = Solver.buildExperiment(n, 3000);
                 Matrix.set(experiment, 4000, 3, 3, 6, 6);
                 Solver.experiment = Matrix.matrixToRow(experiment);
-                values2D = Solver.solve(10, 3, 3);
+                values2D = Solver.solve(n, m, 3);
                 inited = true;
             }
             int i = (int) x / 50;

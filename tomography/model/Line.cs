@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace nzy3d_wpfDemo
+namespace tomography
 {
     class Line
     {

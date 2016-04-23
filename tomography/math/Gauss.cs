@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace nzy3d_wpfDemo
+namespace tomography
 {
     class Gauss
     {

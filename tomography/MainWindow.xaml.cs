@@ -11,18 +11,17 @@ using nzy3D.Plot3D.Rendering.View;
 using System.ComponentModel;
 using System.Windows;
 
-namespace nzy3d_wpfDemo
+namespace tomography
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
+        public static int n = 10;
+        public static int m = 10;
+
 
         private nzy3D.Chart.Controllers.Thread.Camera.CameraThreadController t;
-        private nzy3D.Chart.Controllers.Thread.Camera.CameraThreadController t2;
         private IAxeLayout axeLayout;
-        private IAxeLayout axeLayout2;
 
         public MainWindow()
         {
@@ -45,15 +44,15 @@ namespace nzy3d_wpfDemo
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             buildPlot(new MyMapper(), this.Main, t, axeLayout);
-            //buildPlot(new ExpMapper(), this.Exp, t2, axeLayout2);
+            //buildPlot(new ExpMapper(), this.Exp, t, axeLayout);
         }
 
         private void buildPlot(nzy3D.Plot3D.Builder.Mapper mapper, System.Windows.Controls.Grid element, nzy3D.Chart.Controllers.Thread.Camera.CameraThreadController t, IAxeLayout axeLayout)
         {
 
             // Create the interop host control.
-        System.Windows.Forms.Integration.WindowsFormsHost host =
-                    new System.Windows.Forms.Integration.WindowsFormsHost();
+            System.Windows.Forms.Integration.WindowsFormsHost host =
+                        new System.Windows.Forms.Integration.WindowsFormsHost();
 
             // Create the Renderer 3D control.
             Renderer3D renderer = new Renderer3D();
@@ -61,17 +60,17 @@ namespace nzy3d_wpfDemo
             // Assign the Renderer 3D control as the host control's child.
             host.Child = renderer;
 
-            // Add the interop host control to the Grid 
-            // control's collection of child controls. 
             element.Children.Add(host);
 
             // Create a range for the graph generation
-            Range range = new Range(0, 499);
-            int steps = 50;
+            Range xRange = new Range(0, n * 50 - 1);
+            int xSteps = n;
+            Range yRange = new Range(0, m * 50 - 1);
+            int ySteps = m;
 
             // Build a nice surface to display with cool alpha colors 
             // (alpha 0.8 for surface color and 0.5 for wireframe)
-            Shape surface = Builder.buildOrthonomal(new OrthonormalGrid(range, steps, range, steps), mapper);
+            Shape surface = Builder.buildOrthonomal(new OrthonormalGrid(xRange, xSteps, yRange, ySteps), mapper);
             surface.ColorMapper = new ColorMapper(new ColorMapRainbow(), surface.Bounds.zmin, surface.Bounds.zmax, new Color(1, 1, 1, 0.8));
             surface.FaceDisplayed = true;
             surface.WireframeDisplayed = true;
