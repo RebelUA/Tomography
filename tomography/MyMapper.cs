@@ -17,8 +17,8 @@ namespace tomography
                 int m = MainWindow.m;
                 int k = MainWindow.k;
                 double[][] experiment = Solver.buildExperiment(Math.Max(m, Math.Max(n, k)), 3000);
-                //Matrix.set(experiment, 3500, 10, 10, 15, 15);
-                experiment[1][1] = 4000;
+                Matrix.set(experiment, 4000, 3, 3, 6, 6);
+                //experiment[1][1] = 4000;
                 //experiment[3][3] = 3600;
                 //experiment[4][1] = 5000;
                 Solver.experiment = Matrix.matrixToRow(experiment);

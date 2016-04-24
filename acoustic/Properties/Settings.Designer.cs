@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace nzy3d_wpfDemo.Properties {
+namespace acoustic.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -28,17 +28,6 @@ namespace nzy3d_wpfDemo.Properties {
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\HidrohimDB.md" +
             "f;Integrated Security=True;Connect Timeout=30")]
-        public string HidrohimDBConnection {
-            get {
-                return ((string)(this["HidrohimDBConnection"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\data\\Hidrohim" +
-            "DB.mdf;Integrated Security=True;Connect Timeout=30")]
         public string HidrohimDBConnectionString {
             get {
                 return ((string)(this["HidrohimDBConnectionString"]));

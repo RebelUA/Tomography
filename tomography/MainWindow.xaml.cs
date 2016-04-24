@@ -11,6 +11,7 @@ using nzy3D.Plot3D.Rendering.View;
 using System;
 using System.ComponentModel;
 using System.Windows;
+using tomography.model;
 
 namespace tomography
 {
@@ -18,9 +19,8 @@ namespace tomography
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
         public static int n = 10;
-        public static int m = 5;
-        public static int k = 5;
-
+        public static int m = 10;
+        public static int k = 10;
 
         private nzy3D.Chart.Controllers.Thread.Camera.CameraThreadController t;
         private IAxeLayout axeLayout;
@@ -29,6 +29,7 @@ namespace tomography
         {
             InitializeComponent();
             ConsoleManager.Show();
+            
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -44,8 +45,8 @@ namespace tomography
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            buildPlot(new MyMapper(), this.Main, t, axeLayout);
-            //buildPlot(new ExpMapper(), this.Main, t, axeLayout);
+            //buildPlot(new MyMapper(), this.Main, t, axeLayout);
+            buildPlot(new ExpMapper(), this.Main, t, axeLayout);
         }
 
         private void buildPlot(nzy3D.Plot3D.Builder.Mapper mapper, System.Windows.Controls.Grid element, nzy3D.Chart.Controllers.Thread.Camera.CameraThreadController t, IAxeLayout axeLayout)
@@ -73,7 +74,7 @@ namespace tomography
             // Build a nice surface to display with cool alpha colors 
             // (alpha 0.8 for surface color and 0.5 for wireframe)
             Shape surface = Builder.buildOrthonomal(new OrthonormalGrid(xRange, xSteps, yRange, ySteps), mapper);
-            surface.ColorMapper = new ColorMapper(new ColorMapRainbow(), surface.Bounds.zmin, surface.Bounds.zmax, new Color(1, 1, 1, 0.8));
+            surface.ColorMapper = new ColorMapper(new TemperatureColorMap(), surface.Bounds.zmin, surface.Bounds.zmax, new Color(1, 1, 1, 0.8));
             surface.FaceDisplayed = true;
             surface.WireframeDisplayed = true;
             surface.WireframeColor = Color.GRAY;

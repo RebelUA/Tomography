@@ -6,25 +6,25 @@ namespace tomography.math
     class Solver
     {
 
-        public static double[] experiment;
+        private static double[] experiment;
 
-        public static double[][] buildExperiment(int n, double value)
+        public static double[][] buildExperiment(int n, int m, double value)
         {
-            double[][] experiment = Matrix.initMatrix(n, n);
+            double[][] experiment = Matrix.initMatrix(n, m);
 
             for (int i = 0; i < n; i++)
             {
-                for (int j = 0; j < n; j++)
+                for (int j = 0; j < m; j++)
                 {
                     experiment[i][j] = value;
                 }
             }
-
             return experiment;
         }
 
-        public static double[][] solve(int n, int m, int k)
+        public static double[][] solve(double[][] experiment, int n, int m, int k)
         {
+            Solver.experiment = Matrix.matrixToRow(experiment);
             int rectangleCount = Math.Max(n, k) * m;
             int linesCount = n * k;
             double size = 50;
