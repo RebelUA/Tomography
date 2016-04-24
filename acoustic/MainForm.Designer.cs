@@ -1,4 +1,4 @@
-﻿namespace acoustic
+﻿namespace tomography
 {
     partial class MainForm
     {
@@ -33,8 +33,10 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.mapPanel = new System.Windows.Forms.Panel();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // plotPanel
@@ -74,6 +76,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.mapPanel);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -81,6 +84,14 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Map";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // mapPanel
+            // 
+            this.mapPanel.Location = new System.Drawing.Point(111, 29);
+            this.mapPanel.Name = "mapPanel";
+            this.mapPanel.Size = new System.Drawing.Size(500, 362);
+            this.mapPanel.TabIndex = 0;
+            this.mapPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.mapPanel_Paint);
             // 
             // MainForm
             // 
@@ -92,6 +103,7 @@
             this.Text = "MainForm";
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -102,5 +114,6 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.Panel mapPanel;
     }
 }

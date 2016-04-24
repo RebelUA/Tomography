@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace tomography
+namespace tomography.math
 {
     class Matrix
     {

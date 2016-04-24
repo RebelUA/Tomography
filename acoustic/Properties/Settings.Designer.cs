@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace acoustic.Properties {
+namespace tomography.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
