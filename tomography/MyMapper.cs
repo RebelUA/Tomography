@@ -1,8 +1,5 @@
 ﻿using tomography.math;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace tomography
 {
@@ -18,13 +15,14 @@ namespace tomography
             {
                 int n = MainWindow.n;
                 int m = MainWindow.m;
-                double[][] experiment = Solver.buildExperiment(Math.Max(n, m), 3000);
-                Matrix.set(experiment, 3500, 10, 10, 15, 15);
-                //experiment[1][1] = 4000;
+                int k = MainWindow.k;
+                double[][] experiment = Solver.buildExperiment(Math.Max(m, Math.Max(n, k)), 3000);
+                //Matrix.set(experiment, 3500, 10, 10, 15, 15);
+                experiment[1][1] = 4000;
                 //experiment[3][3] = 3600;
                 //experiment[4][1] = 5000;
                 Solver.experiment = Matrix.matrixToRow(experiment);
-                values2D = Solver.solve(n, m, 3);
+                values2D = Solver.solve(n, m, k);
                 inited = true;
             }
             int i = (int) x / 50;

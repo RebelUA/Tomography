@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using tomography.math;
 
 namespace tomography
 {
@@ -27,6 +23,7 @@ namespace tomography
             {
                 A[j][j] += value;
             }
+
         }
 
         public static double[][] multiply(double[][] m, double value)
@@ -146,6 +143,16 @@ namespace tomography
                     matrix[i][j] = value;
                 }
             }
+        }
+
+        public static double sumMultiply(double[] a, double[] b)
+        {
+            double sum = 0;
+            for (int i = 0; i < a.Length; i++)
+            {
+                sum += a[i] * b[i];
+            }
+            return sum;
         }
     }
 }

@@ -8,6 +8,7 @@ using nzy3D.Plot3D.Primitives;
 using nzy3D.Plot3D.Primitives.Axes.Layout;
 using nzy3D.Plot3D.Rendering.Canvas;
 using nzy3D.Plot3D.Rendering.View;
+using System;
 using System.ComponentModel;
 using System.Windows;
 
@@ -16,8 +17,9 @@ namespace tomography
 
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
-        public static int n = 20;
-        public static int m = 20;
+        public static int n = 10;
+        public static int m = 5;
+        public static int k = 5;
 
 
         private nzy3D.Chart.Controllers.Thread.Camera.CameraThreadController t;
@@ -26,8 +28,7 @@ namespace tomography
         public MainWindow()
         {
             InitializeComponent();
-            //Init console
-            //ConsoleManager.Show();
+            ConsoleManager.Show();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -44,7 +45,7 @@ namespace tomography
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             buildPlot(new MyMapper(), this.Main, t, axeLayout);
-            //buildPlot(new ExpMapper(), this.Exp, t, axeLayout);
+            //buildPlot(new ExpMapper(), this.Main, t, axeLayout);
         }
 
         private void buildPlot(nzy3D.Plot3D.Builder.Mapper mapper, System.Windows.Controls.Grid element, nzy3D.Chart.Controllers.Thread.Camera.CameraThreadController t, IAxeLayout axeLayout)
@@ -63,8 +64,9 @@ namespace tomography
             element.Children.Add(host);
 
             // Create a range for the graph generation
-            Range xRange = new Range(0, n * 50 - 1);
-            int xSteps = System.Math.Min(n * 2, 30);
+            int x = Math.Max(n, k);
+            Range xRange = new Range(0, x * 50 - 1);
+            int xSteps = System.Math.Min(x * 2, 30);
             Range yRange = new Range(0, m * 50 - 1);
             int ySteps = System.Math.Min(m * 2, 30);
 

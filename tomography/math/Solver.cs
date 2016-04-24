@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace tomography.math
 {
@@ -12,11 +8,14 @@ namespace tomography.math
 
         public static double[] experiment;
 
-        public static double[][] buildExperiment(int n, double value) {
+        public static double[][] buildExperiment(int n, double value)
+        {
             double[][] experiment = Matrix.initMatrix(n, n);
 
-            for (int i = 0; i < n; i++) {
-                for (int j = 0; j < n; j++) {
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
                     experiment[i][j] = value;
                 }
             }
@@ -26,12 +25,12 @@ namespace tomography.math
 
         public static double[][] solve(int n, int m, int k)
         {
-            int nm = n * m;
-            int nn = n * n;
+            int rectangleCount = Math.Max(n, k) * m;
+            int linesCount = n * k;
             double size = 50;
 
-            Rectangle[] rectangles = new Rectangle[nm];
-            Line[] lines = new Line[nn];
+            Rectangle[] rectangles = new Rectangle[rectangleCount];
+            Line[] lines = new Line[linesCount];
 
             double distance = m * size;
             int iCount = 0;
@@ -39,22 +38,33 @@ namespace tomography.math
             for (int i = 0; i < n; i++)
             {
                 double center = i * size + (size / 2);
-                for (int j = 0; j < m; j++)
-                {
-                    rectangles[iCount++] = new Rectangle(i * size, j * size, size, size);
-                }
-                for (int j = 0; j < n; j++)
+                for (int j = 0; j < k; j++)
                 {
                     lines[jCount++] = new Line(center, 0, j * size + (size / 2), distance);
                 }
             }
-            intersect(rectangles, lines, n, m, size);
-            return calculate(rectangles, lines, n, m, size);
+            for (int i = 0; i < Math.Max(n, k); i++)
+            {
+                for (int j = 0; j < m; j++)
+                {
+                    rectangles[iCount++] = new Rectangle(i * size, j * size, size, size);
+                }
+            }
+            intersect(rectangles, lines, n, m, k, size);
+            return calculate(rectangles, lines, n, m, k, size);
         }
 
-        private static double[][] calculate(Rectangle[] rectangles, Line[] lines, int n, int m, double size)
+        private static double[][] calculate(Rectangle[] rectangles, Line[] lines, int n, int m, int k, double size)
         {
-            double[][] matrix = Matrix.initMatrix(n * n, n * m);
+            int nk = Math.Max(n, k);
+
+
+            int diff = 0;
+            //if (n != k)
+            //{
+            //    diff = nk * Math.Abs(n - k);
+            //}
+            double[][] matrix = Matrix.initMatrix(nk * nk - diff, nk * m);
 
             for (int i = 0; i < rectangles.Length; i++)
             {
@@ -66,39 +76,53 @@ namespace tomography.math
                 }
             }
 
-            double[] vector = new double[n * n];
+            double[] vector = new double[nk * nk - diff];
 
             for (int i = 0; i < matrix.Length; i++)
             {
                 double[] row = (double[])matrix.GetValue(i);
-                vector[i] = multiply(row, experiment);
+                vector[i] = Matrix.sumMultiply(row, experiment);
             }
+
+            ////////
+            //int rowLength = matrix[0].Length;
+            //int colLength = matrix.Length;
+
+            //for (int i = 0; i < colLength; i++)
+            //{
+            //    for (int j = 0; j < rowLength; j++)
+            //    {
+            //        Console.Write(string.Format("{0:0.00} ", matrix[i][j]));
+            //    }
+            //    Console.Write(string.Format("= {0:0.00} ", vector[i]));
+            //    Console.Write(Environment.NewLine + Environment.NewLine);
+            //}
+            //////////
 
             double[][] tMatrix = Matrix.transpose(matrix);
+
             double[][] newMatrix = Matrix.multiplyParallel(tMatrix, matrix);
-            double[] newVector = Matrix.multiply(tMatrix, vector);            
+            double[] newVector = Matrix.multiply(tMatrix, vector);
             Matrix.addToMainDiag(newMatrix, 0.01);
-            
+
             double[] values = Gauss.solve(newMatrix, newVector);
-            
-            return Matrix.rowToMatrix(values, n, m);
-        }
 
-        private static double multiply(double[] a, double[] b)
-        {
-            double sum = 0;
-            for (int i = 0; i < a.Length; i++)
+            //////
+            Console.WriteLine("Values:");
+            for (int i = 0; i < values.Length; i++)
             {
-                sum += a[i] * b[i];
+                Console.Write(string.Format("{0:0} ", values[i]));
             }
-            return sum;
+            ////////
+
+            return Matrix.rowToMatrix(values, nk, m);
         }
 
-        private static void intersect(Rectangle[] rectangles, Line[] lines, int n, int m, double size)
+        private static void intersect(Rectangle[] rectangles, Line[] lines, int n, int m, int k, double size)
         {
-            for (int i = 0; i < n * m; i++)
+            for (int i = 0; i < Math.Max(n, k) * m; i++)
             {
-                for (int j = 0; j < n * n; j++)
+                for (int j = 0; j < n * k; j++)
                 {
                     List<Point> list = getIntersection(rectangles[i], lines[j]);
                     if (list.Count != 0)
