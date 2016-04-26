@@ -63,6 +63,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExactDataForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExactDataForm.Designer.cs">
+      <DependentUpon>ExactDataForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ExperimentFunction.cs" />
     <Compile Include="HidrohimDBDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -85,6 +91,9 @@
     <Compile Include="ApproximateFunction.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ExactDataForm.resx">
+      <DependentUpon>ExactDataForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ILNumerics_deploy\ilnumerics.lic" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

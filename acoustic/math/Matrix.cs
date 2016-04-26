@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace tomography.math
@@ -108,11 +109,19 @@ namespace tomography.math
         {
             double[][] values2D = initMatrix(n, m);
             int count = 0;
+            double value;
             for (int i = 0; i < n; i++)
             {
                 for (int j = 0; j < m; j++)
                 {
-                    values2D[i][j] = row[count++];
+                    if (count <= row.Length)
+                    {
+                        value = row[count++];
+                    } else
+                    {
+                        value = 0;
+                    }
+                    values2D[i][j] = value;
                 }
             }
             return values2D;
@@ -121,11 +130,12 @@ namespace tomography.math
         public static double[] matrixToRow(double[][] matrix)
         {
             int n = matrix.Length;
-            double[] values = new double[n * n];
+            int m = matrix[0].Length;
+            double[] values = new double[n * m];
             int k = 0;
             for (int i = 0; i < n; i++)
             {
-                for (int j = 0; j < n; j++)
+                for (int j = 0; j < m; j++)
                 {
                     values[k] = matrix[i][j];
                     k++;
@@ -153,6 +163,47 @@ namespace tomography.math
                 sum += a[i] * b[i];
             }
             return sum;
+        }
+
+        public static double[][] TrimArray(List<int> toRemove, double[][] originalArray)
+        {
+            int n = originalArray.Length;
+            int m = originalArray[0].Length;
+            int newN = n - toRemove.Count;
+
+            double[][] result = initMatrix(newN, m);
+
+            for (int i = 0, j = 0; i < n; i++)
+            {
+                if (toRemove.Contains(i))
+                    continue;
+
+                for (int k = 0; k < m; k++)
+                {
+                    result[j][k] = originalArray[i][k];
+                }
+                j++;
+            }
+
+            return result;
+        }
+
+        public static double[] TrimArray(List<int> toRemove, double[] originalArray)
+        {
+            int n = originalArray.Length;
+            int newN = n - toRemove.Count;
+
+            double[] result = new double[newN];
+
+            for (int i = 0, j = 0; i < n; i++)
+            {
+                if (toRemove.Contains(i))
+                    continue;
+                result[j] = originalArray[i];
+                j++;
+            }
+
+            return result;
         }
     }
 }

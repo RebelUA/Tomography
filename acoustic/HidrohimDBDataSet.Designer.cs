@@ -10,7 +10,7 @@
 
 #pragma warning disable 1591
 
-namespace tomography {
+namespace acoustic {
     
     
     /// <summary>
@@ -12167,7 +12167,7 @@ namespace tomography {
         }
     }
 }
-namespace tomography.HidrohimDBDataSetTableAdapters {
+namespace acoustic.HidrohimDBDataSetTableAdapters {
     
     
     /// <summary>
@@ -12372,7 +12372,7 @@ SELECT ID, Type, TableName, PK, FieldName, OldValue, NewValue, UpdateTime, UserI
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::tomography.Properties.Settings.Default.HidrohimDBConnectionString;
+            this._connection.ConnectionString = global::acoustic.Properties.Settings.Default.HidrohimDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -12931,7 +12931,7 @@ SELECT ID, Type, TableName, PK, FieldName, OldValue, NewValue, UpdateTime, UserI
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::tomography.Properties.Settings.Default.HidrohimDBConnectionString;
+            this._connection.ConnectionString = global::acoustic.Properties.Settings.Default.HidrohimDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -13300,7 +13300,7 @@ SELECT id, indicator_id, well_id, value, meterage_datetime, performer_id, insert
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::tomography.Properties.Settings.Default.HidrohimDBConnectionString;
+            this._connection.ConnectionString = global::acoustic.Properties.Settings.Default.HidrohimDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -13812,7 +13812,7 @@ SELECT id, well_id, value, meterage_datetime, performer_id, index_altitude, leve
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::tomography.Properties.Settings.Default.HidrohimDBConnectionString;
+            this._connection.ConnectionString = global::acoustic.Properties.Settings.Default.HidrohimDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -14403,7 +14403,7 @@ SELECT id, name, formula, unit, minnorm, maxnorm, ratio FROM indicators WHERE (i
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::tomography.Properties.Settings.Default.HidrohimDBConnectionString;
+            this._connection.ConnectionString = global::acoustic.Properties.Settings.Default.HidrohimDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -14867,7 +14867,7 @@ SELECT id, name, formula, unit, minnorm, maxnorm, ratio FROM indicators WHERE (i
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::tomography.Properties.Settings.Default.HidrohimDBConnectionString;
+            this._connection.ConnectionString = global::acoustic.Properties.Settings.Default.HidrohimDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -15209,7 +15209,7 @@ SELECT id, caption, main_id, permission_id, method FROM menu_items WHERE (id = @
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::tomography.Properties.Settings.Default.HidrohimDBConnectionString;
+            this._connection.ConnectionString = global::acoustic.Properties.Settings.Default.HidrohimDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -15613,7 +15613,7 @@ SELECT id, caption, main_id, permission_id, method FROM menu_items WHERE (id = @
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::tomography.Properties.Settings.Default.HidrohimDBConnectionString;
+            this._connection.ConnectionString = global::acoustic.Properties.Settings.Default.HidrohimDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -15985,7 +15985,7 @@ SELECT id, ObjectId, Name, Data, Author, BeingEdited, UsersCanEdit, IsPrivate, V
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::tomography.Properties.Settings.Default.HidrohimDBConnectionString;
+            this._connection.ConnectionString = global::acoustic.Properties.Settings.Default.HidrohimDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -16503,7 +16503,7 @@ SELECT id, fio, jobtitle_id, login, password FROM performers WHERE (id = @id)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::tomography.Properties.Settings.Default.HidrohimDBConnectionString;
+            this._connection.ConnectionString = global::acoustic.Properties.Settings.Default.HidrohimDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -16894,7 +16894,7 @@ SELECT role_id, performer_id FROM performers_roles WHERE (performer_id = @perfor
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::tomography.Properties.Settings.Default.HidrohimDBConnectionString;
+            this._connection.ConnectionString = global::acoustic.Properties.Settings.Default.HidrohimDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -17189,7 +17189,7 @@ SELECT role_id, performer_id FROM performers_roles WHERE (performer_id = @perfor
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::tomography.Properties.Settings.Default.HidrohimDBConnectionString;
+            this._connection.ConnectionString = global::acoustic.Properties.Settings.Default.HidrohimDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -17494,7 +17494,7 @@ SELECT role_id, performer_id FROM performers_roles WHERE (performer_id = @perfor
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::tomography.Properties.Settings.Default.HidrohimDBConnectionString;
+            this._connection.ConnectionString = global::acoustic.Properties.Settings.Default.HidrohimDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -17813,7 +17813,7 @@ SELECT role_id, permission_id FROM roles_permissions WHERE (permission_id = @per
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::tomography.Properties.Settings.Default.HidrohimDBConnectionString;
+            this._connection.ConnectionString = global::acoustic.Properties.Settings.Default.HidrohimDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -18121,7 +18121,7 @@ SELECT id, object_id, name FROM sectors WHERE (id = @id)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::tomography.Properties.Settings.Default.HidrohimDBConnectionString;
+            this._connection.ConnectionString = global::acoustic.Properties.Settings.Default.HidrohimDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -18521,7 +18521,7 @@ SELECT id, SectorId, Name, Data, Author, BeingEdited, UsersCanEdit, IsPrivate, V
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::tomography.Properties.Settings.Default.HidrohimDBConnectionString;
+            this._connection.ConnectionString = global::acoustic.Properties.Settings.Default.HidrohimDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -19056,7 +19056,7 @@ SELECT id, indicator_id, controlpoint_id, value, meterage_datetime, performer_id
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::tomography.Properties.Settings.Default.HidrohimDBConnectionString;
+            this._connection.ConnectionString = global::acoustic.Properties.Settings.Default.HidrohimDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -19540,7 +19540,7 @@ SELECT id, controlpoint_id, value, meterage_datetime, performer_id FROM sw_level
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::tomography.Properties.Settings.Default.HidrohimDBConnectionString;
+            this._connection.ConnectionString = global::acoustic.Properties.Settings.Default.HidrohimDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -20039,18 +20039,29 @@ SELECT id, char_name, sector_id, coordX, coordY, index_altitude, level_altitude,
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::tomography.Properties.Settings.Default.HidrohimDBConnectionString;
+            this._connection.ConnectionString = global::acoustic.Properties.Settings.Default.HidrohimDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[3];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT id, char_name, sector_id, coordX, coordY, index_altitude, level_altitude, " +
                 "depth, horizon, filter_up, filter_down, note, date FROM dbo.wells";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[1].Connection = this.Connection;
+            this._commandCollection[1].CommandText = "SELECT        id, char_name, sector_id, coordX, coordY, index_altitude, level_alt" +
+                "itude, depth, horizon, filter_up, filter_down, note, date\r\nFROM            wells" +
+                "\r\nWHERE        (sector_id = 101) AND (NOT (depth IS NULL))";
+            this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[2] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[2].Connection = this.Connection;
+            this._commandCollection[2].CommandText = "SELECT id, char_name, sector_id, coordX, coordY, index_altitude, level_altitude, " +
+                "depth, horizon, filter_up, filter_down, note, date FROM dbo.wells";
+            this._commandCollection[2].CommandType = global::System.Data.CommandType.Text;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -20075,6 +20086,32 @@ SELECT id, char_name, sector_id, coordX, coordY, index_altitude, level_altitude,
             HidrohimDBDataSet.wellsDataTable dataTable = new HidrohimDBDataSet.wellsDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillBy(HidrohimDBDataSet.wellsDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillBy1(HidrohimDBDataSet.wellsDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[2];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -20754,7 +20791,7 @@ SELECT id, WellId, Name, Data, Author, BeingEdited, UsersCanEdit, IsPrivate, Ver
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::tomography.Properties.Settings.Default.HidrohimDBConnectionString;
+            this._connection.ConnectionString = global::acoustic.Properties.Settings.Default.HidrohimDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace tomography.math
 {
@@ -59,12 +60,7 @@ namespace tomography.math
             int nk = Math.Max(n, k);
 
 
-            int diff = 0;
-            //if (n != k)
-            //{
-            //    diff = nk * Math.Abs(n - k);
-            //}
-            double[][] matrix = Matrix.initMatrix(nk * nk - diff, nk * m);
+            double[][] matrix = Matrix.initMatrix(nk * nk, nk * m);
 
             for (int i = 0; i < rectangles.Length; i++)
             {
@@ -76,13 +72,22 @@ namespace tomography.math
                 }
             }
 
-            double[] vector = new double[nk * nk - diff];
+            double[] vector = new double[nk * nk];
+
+            List<int> toRemove = new List<int>();
 
             for (int i = 0; i < matrix.Length; i++)
             {
                 double[] row = (double[])matrix.GetValue(i);
                 vector[i] = Matrix.sumMultiply(row, experiment);
+                if (vector[i] == 0)
+                {
+                    toRemove.Add(i);
+                } 
             }
+
+            //vector = Matrix.TrimArray(toRemove, vector);
+            //matrix = Matrix.TrimArray(toRemove, matrix);
 
             ////////
             //int rowLength = matrix[0].Length;

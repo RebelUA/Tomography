@@ -3,7 +3,7 @@ using System;
 
 namespace tomography
 {
-    class ExperimentFunction
+    public class ExperimentFunction
     {
 
         public void solve(double[][] experiment)
