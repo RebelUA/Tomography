@@ -45,6 +45,7 @@ namespace tomography
                 }
             }
             intersections.Add(rectangle, points);
+            rectangle.Intersected = true;
         }
 
         public List<Point> getIntersections(Rectangle rectangle)
@@ -57,20 +58,28 @@ namespace tomography
         public double getIntersectionsLength(Rectangle rectangle)
         {
             List<Point> list = getIntersections(rectangle);
-            if (list != null && list.Count != 0)
+            if (list == null)
             {
-                if (list.Count != 2)
-                {
-                    throw new Exception("Wrong amont of points: " + list);
-                }
-
-                Point point1 = list[0];
-                Point point2 = list[1];
-
-                return Math.Sqrt((point2.X - point1.X) * (point2.X - point1.X)
-                        + (point2.Y - point1.Y) * (point2.Y - point1.Y));
+                return 0;
             }
-            return 0;
+
+            if (list.Count != 2)
+            {
+                throw new Exception("Wrong amont of points: " + list);
+            }
+
+            Point point1 = list[0];
+            Point point2 = list[1];
+
+            rectangle.Intersected = true;
+            return Math.Sqrt((point2.X - point1.X) * (point2.X - point1.X)
+                    + (point2.Y - point1.Y) * (point2.Y - point1.Y));
+
+        }
+
+        public Dictionary<Rectangle, List<Point>> getInt()
+        {
+            return intersections;
         }
 
         public Line()

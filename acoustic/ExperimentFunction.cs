@@ -15,8 +15,8 @@ namespace tomography
 
         public double f(double x, double y)
         {
-            int i = (int) x / 50;
-            int j = (int) y / 50;
+            int i = (int) x / 10;
+            int j = (int) y / 20;
             return values[i][j];
         }
 

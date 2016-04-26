@@ -105,21 +105,24 @@ namespace tomography.math
             return matrix;
         }
 
-        public static double[][] rowToMatrix(double[] row, int n, int m)
+        public static double[][] rowToMatrix(double[] row, List<int> removed, int n, int m)
         {
             double[][] values2D = initMatrix(n, m);
-            int count = 0;
+            int count1 = 0;
+            int count2 = 0;
             double value;
             for (int i = 0; i < n; i++)
             {
                 for (int j = 0; j < m; j++)
                 {
-                    if (count <= row.Length)
+                    if (count2 < row.Length && !removed.Contains(count1))
                     {
-                        value = row[count++];
+                        value = row[count2++];
+                        count1++;
                     } else
                     {
                         value = 0;
+                        count1++;
                     }
                     values2D[i][j] = value;
                 }
@@ -165,30 +168,38 @@ namespace tomography.math
             return sum;
         }
 
-        public static double[][] TrimArray(List<int> toRemove, double[][] originalArray)
+        public static double sumColumn(double[][] a, int column)
+        {
+            double sum = 0;
+            for (int i = 0; i < a.Length; i++)
+            {
+                sum += a[i][column];
+            }
+            return sum;
+        }
+
+        public static double[][] trimColumns(List<int> toRemove, double[][] originalArray)
         {
             int n = originalArray.Length;
             int m = originalArray[0].Length;
-            int newN = n - toRemove.Count;
+            int newM = m - toRemove.Count;
 
-            double[][] result = initMatrix(newN, m);
+            double[][] result = initMatrix(n, newM);
 
-            for (int i = 0, j = 0; i < n; i++)
+            for (int i = 0; i < n; i++)
             {
-                if (toRemove.Contains(i))
-                    continue;
-
-                for (int k = 0; k < m; k++)
+                for (int j = 0, k = 0; j < m; j++)
                 {
-                    result[j][k] = originalArray[i][k];
+                    if (toRemove.Contains(j))
+                        continue;
+                    result[i][k++] = originalArray[i][j];
                 }
-                j++;
             }
 
             return result;
         }
 
-        public static double[] TrimArray(List<int> toRemove, double[] originalArray)
+        public static double[] trimRows(List<int> toRemove, double[] originalArray)
         {
             int n = originalArray.Length;
             int newN = n - toRemove.Count;

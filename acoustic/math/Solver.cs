@@ -28,7 +28,7 @@ namespace tomography.math
             Solver.experiment = Matrix.matrixToRow(experiment);
             int rectangleCount = Math.Max(n, k) * m;
             int linesCount = n * k;
-            double size = 50;
+            double size = 10;
 
             Rectangle[] rectangles = new Rectangle[rectangleCount];
             Line[] lines = new Line[linesCount];
@@ -59,35 +59,38 @@ namespace tomography.math
         {
             int nk = Math.Max(n, k);
 
+            double[][] matrix = Matrix.initMatrix(n * k, nk * m);
 
-            double[][] matrix = Matrix.initMatrix(nk * nk, nk * m);
 
-            for (int i = 0; i < rectangles.Length; i++)
+            for (int i = 0; i < lines.Length; i++)
             {
-                for (int j = 0; j < lines.Length; j++)
+                Line line = lines[i];
+                for (int j = 0; j < rectangles.Length; j++)
                 {
-                    Line line = lines[j];
-                    double length = line.getIntersectionsLength(rectangles[i]);
-                    matrix[j].SetValue(length / size, i);
+                    double length = line.getIntersectionsLength(rectangles[j]);
+                    matrix[i][j] = length / size;
                 }
             }
 
-            double[] vector = new double[nk * nk];
-
-            List<int> toRemove = new List<int>();
+            double[] vector = new double[n * k];
 
             for (int i = 0; i < matrix.Length; i++)
             {
-                double[] row = (double[])matrix.GetValue(i);
+                double[] row = matrix[i];
                 vector[i] = Matrix.sumMultiply(row, experiment);
-                if (vector[i] == 0)
-                {
-                    toRemove.Add(i);
-                } 
             }
 
-            //vector = Matrix.TrimArray(toRemove, vector);
-            //matrix = Matrix.TrimArray(toRemove, matrix);
+            List<int> toRemove = new List<int>();
+
+            for (int i = 0; i < nk * m; i++)
+            {
+                if (!rectangles[i].Intersected)
+                {
+                    toRemove.Add(i);
+                }
+            }
+            matrix = Matrix.trimColumns(toRemove, matrix);
+
 
             ////////
             //int rowLength = matrix[0].Length;
@@ -105,7 +108,6 @@ namespace tomography.math
             //////////
 
             double[][] tMatrix = Matrix.transpose(matrix);
-
             double[][] newMatrix = Matrix.multiplyParallel(tMatrix, matrix);
             double[] newVector = Matrix.multiply(tMatrix, vector);
             Matrix.addToMainDiag(newMatrix, 0.01);
@@ -120,7 +122,7 @@ namespace tomography.math
             //}
             ////////
 
-            return Matrix.rowToMatrix(values, nk, m);
+            return Matrix.rowToMatrix(values, toRemove, nk, m);
         }
 
         private static void intersect(Rectangle[] rectangles, Line[] lines, int n, int m, int k, double size)

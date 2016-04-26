@@ -35,8 +35,8 @@ namespace acoustic
             scene = new ILScene() {
   new ILPlotCube(twoDMode: false, tag: "Speed") {
     new ILSurface((x, y) => (float) function.f(x, y),
-            xmin: 0, xmax: Math.Max(n, k) * 50 - 1, xlen: 50,
-            ymin: 0, ymax: m * 50 - 1, ylen: 50,
+            xmin: 0, xmax: Math.Max(n, k) * 10 - 1, xlen: 30,
+            ymin: 0, ymax: m * 20 - 1, ylen: 30,
             colormap: Colormaps.ILNumerics) {
       UseLighting = true,
       Children = {

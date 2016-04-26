@@ -33,6 +33,7 @@ namespace tomography
         {
             InitializeComponent();
             tabControl1.TabPages.Remove(tabPage2);
+            solveBtn.Enabled = true;
         }
 
         private void PlotPanel_Load(object sender, EventArgs e)
@@ -40,8 +41,8 @@ namespace tomography
             scene = new ILScene() {
   new ILPlotCube(twoDMode: false, tag: "Speed") {
     new ILSurface((x, y) => (float) function.f(x, y),
-            xmin: 0, xmax: Math.Max(globalN, globalK) * 50 - 1, xlen: 50,
-            ymin: 0, ymax: globalM * 50 - 1, ylen: 50,
+            xmin: 0, xmax: Math.Max(globalN, globalK) * 10 - 1, xlen: 30,
+            ymin: 0, ymax: globalM * 20 - 1, ylen: 30,
             colormap: Colormaps.ILNumerics) {
       UseLighting = true,
       Children = {
@@ -211,7 +212,7 @@ namespace tomography
                 return;
             }
 
-            mapDist.Text = ((int) dist / 20).ToString();
+            mapDist.Text = ((int) dist).ToString();
             mapDepthA.Text = depthA.ToString();
             mapDepthB.Text = depthB.ToString();
 

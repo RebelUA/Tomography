@@ -12,6 +12,7 @@ namespace tomography
         private double width;
         private double y;
         private double height;
+        private bool intersected;
         private Line[] lines;
 
         public Rectangle(double x, double y, double width, double height)
@@ -104,5 +105,17 @@ namespace tomography
             }
         }
 
+        public bool Intersected
+        {
+            get
+            {
+                return intersected;
+            }
+
+            set
+            {
+                intersected = value;
+            }
+        }
     }
 }
