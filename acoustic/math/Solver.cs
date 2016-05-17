@@ -23,6 +23,18 @@ namespace tomography.math
             return experiment;
         }
 
+        public static double[][] buildRandomExperiment(int n, int m, double value)
+        {
+            double[][] experiment = buildExperiment(n, m, value);
+
+            Random rand = new Random();
+            for (int i = 0; i < n; i++)
+            {
+                    experiment[i][rand.Next(m)] = rand.Next(3000, 4000);
+            }
+            return experiment;
+        }
+
         public static double[][] solve(double[][] experiment, int n, int m, int k)
         {
             Solver.experiment = Matrix.matrixToRow(experiment);
@@ -82,14 +94,17 @@ namespace tomography.math
 
             List<int> toRemove = new List<int>();
 
-            for (int i = 0; i < nk * m; i++)
+            if (n != k)
             {
-                if (!rectangles[i].Intersected)
+                for (int i = 0; i < nk * m; i++)
                 {
-                    toRemove.Add(i);
+                    if (!rectangles[i].Intersected)
+                    {
+                        toRemove.Add(i);
+                    }
                 }
+                matrix = Matrix.trimColumns(toRemove, matrix);
             }
-            matrix = Matrix.trimColumns(toRemove, matrix);
 
 
             ////////

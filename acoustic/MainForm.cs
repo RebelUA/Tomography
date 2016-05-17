@@ -237,9 +237,9 @@ namespace tomography
                 }
             }
 
-            double[][] experiment = Solver.buildExperiment(Math.Max(globalN, globalK), globalM, 3000);
+            double[][] experiment = Solver.buildRandomExperiment(Math.Max(globalN, globalK), globalM, 3000);
             //Matrix.set(experiment, 4000, 3, 3, 6, 6);
-            Matrix.set(experiment, 3500, 1, 1, 2, 2);
+            //Matrix.set(experiment, 3500, 1, 1, 2, 2);
             //experiment[1][1] = 4000;
             //experiment[3][3] = 3600;
             //experiment[4][1] = 5000;
