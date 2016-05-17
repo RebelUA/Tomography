@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabSpeed = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -63,6 +63,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.drawButton = new System.Windows.Forms.Button();
             this.solveBtn = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
@@ -85,8 +86,16 @@
             this.depthAPanel = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.plotPanel = new ILNumerics.Drawing.ILPanel();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.speedsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.dataSet1 = new System.Data.DataSet();
             this.wellsTableAdapter = new acoustic.HidrohimDBDataSetTableAdapters.wellsTableAdapter();
-            this.tabControl1.SuspendLayout();
+            this.speedsTableAdapter = new acoustic.HidrohimDBDataSetTableAdapters.speedsTableAdapter();
+            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.speedDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label9 = new System.Windows.Forms.Label();
+            this.tabSpeed.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -97,18 +106,22 @@
             ((System.ComponentModel.ISupportInitialize)(this.hidrohimDBDataSetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.hidrohimDBDataSet)).BeginInit();
             this.tabPage2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.speedsBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).BeginInit();
             this.SuspendLayout();
             // 
-            // tabControl1
+            // tabSpeed
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(0, -1);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(909, 643);
-            this.tabControl1.TabIndex = 1;
-            this.tabControl1.Click += new System.EventHandler(this.PlotPanel_Load);
+            this.tabSpeed.Controls.Add(this.tabPage1);
+            this.tabSpeed.Controls.Add(this.tabPage2);
+            this.tabSpeed.Controls.Add(this.tabPage3);
+            this.tabSpeed.Location = new System.Drawing.Point(0, -1);
+            this.tabSpeed.Name = "tabSpeed";
+            this.tabSpeed.SelectedIndex = 0;
+            this.tabSpeed.Size = new System.Drawing.Size(909, 643);
+            this.tabSpeed.TabIndex = 1;
             // 
             // tabPage1
             // 
@@ -442,6 +455,7 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.groupBox1.Controls.Add(this.drawButton);
             this.groupBox1.Controls.Add(this.solveBtn);
             this.groupBox1.Controls.Add(this.button2);
             this.groupBox1.Controls.Add(this.button1);
@@ -454,10 +468,21 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Wells";
             // 
+            // drawButton
+            // 
+            this.drawButton.Enabled = false;
+            this.drawButton.Location = new System.Drawing.Point(453, 558);
+            this.drawButton.Name = "drawButton";
+            this.drawButton.Size = new System.Drawing.Size(101, 36);
+            this.drawButton.TabIndex = 5;
+            this.drawButton.Text = "Draw";
+            this.drawButton.UseVisualStyleBackColor = true;
+            this.drawButton.Click += new System.EventHandler(this.PlotPanel_Load);
+            // 
             // solveBtn
             // 
             this.solveBtn.Enabled = false;
-            this.solveBtn.Location = new System.Drawing.Point(449, 558);
+            this.solveBtn.Location = new System.Drawing.Point(346, 558);
             this.solveBtn.Name = "solveBtn";
             this.solveBtn.Size = new System.Drawing.Size(101, 36);
             this.solveBtn.TabIndex = 4;
@@ -660,9 +685,78 @@
             this.plotPanel.TabIndex = 2;
             this.plotPanel.Timeout = ((uint)(0u));
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.label9);
+            this.tabPage3.Controls.Add(this.dataGridView2);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(901, 617);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Glossary";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // dataGridView2
+            // 
+            this.dataGridView2.AllowUserToAddRows = false;
+            this.dataGridView2.AllowUserToDeleteRows = false;
+            this.dataGridView2.AutoGenerateColumns = false;
+            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.nameDataGridViewTextBoxColumn,
+            this.speedDataGridViewTextBoxColumn});
+            this.dataGridView2.DataSource = this.speedsBindingSource;
+            this.dataGridView2.Location = new System.Drawing.Point(8, 36);
+            this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.ReadOnly = true;
+            this.dataGridView2.Size = new System.Drawing.Size(444, 323);
+            this.dataGridView2.TabIndex = 0;
+            // 
+            // speedsBindingSource
+            // 
+            this.speedsBindingSource.DataMember = "speeds";
+            this.speedsBindingSource.DataSource = this.hidrohimDBDataSetBindingSource;
+            // 
+            // dataSet1
+            // 
+            this.dataSet1.DataSetName = "NewDataSet";
+            // 
             // wellsTableAdapter
             // 
             this.wellsTableAdapter.ClearBeforeFill = true;
+            // 
+            // speedsTableAdapter
+            // 
+            this.speedsTableAdapter.ClearBeforeFill = true;
+            // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
+            this.nameDataGridViewTextBoxColumn.MaxInputLength = 500;
+            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
+            this.nameDataGridViewTextBoxColumn.Width = 200;
+            // 
+            // speedDataGridViewTextBoxColumn
+            // 
+            this.speedDataGridViewTextBoxColumn.DataPropertyName = "Speed";
+            this.speedDataGridViewTextBoxColumn.HeaderText = "Speed";
+            this.speedDataGridViewTextBoxColumn.MaxInputLength = 500;
+            this.speedDataGridViewTextBoxColumn.Name = "speedDataGridViewTextBoxColumn";
+            this.speedDataGridViewTextBoxColumn.ReadOnly = true;
+            this.speedDataGridViewTextBoxColumn.Width = 200;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label9.Location = new System.Drawing.Point(8, 9);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(319, 24);
+            this.label9.TabIndex = 3;
+            this.label9.Text = "Speed of sound in different materials:";
             // 
             // MainForm
             // 
@@ -670,12 +764,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.ClientSize = new System.Drawing.Size(909, 642);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.tabSpeed);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Text = "Tomography";
             this.Load += new System.EventHandler(this.MainForm_Load);
-            this.tabControl1.ResumeLayout(false);
+            this.tabSpeed.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.groupBox4.ResumeLayout(false);
@@ -691,12 +785,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.hidrohimDBDataSet)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.speedsBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabControl tabSpeed;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private ILNumerics.Drawing.ILPanel plotPanel;
@@ -752,5 +851,15 @@
         private System.Windows.Forms.Label mapDepthB;
         private System.Windows.Forms.Label mapDepthA;
         private System.Windows.Forms.Button exactBtn;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Data.DataSet dataSet1;
+        private System.Windows.Forms.BindingSource speedsBindingSource;
+        private acoustic.HidrohimDBDataSetTableAdapters.speedsTableAdapter speedsTableAdapter;
+        private System.Windows.Forms.DataGridViewTextBoxColumn iDDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.Button drawButton;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn speedDataGridViewTextBoxColumn;
+        private System.Windows.Forms.Label label9;
     }
 }

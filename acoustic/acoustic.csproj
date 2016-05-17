@@ -70,6 +70,9 @@
       <DependentUpon>ExactDataForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ExperimentFunction.cs" />
+    <Compile Include="HidrohimDBDataSet.cs">
+      <DependentUpon>HidrohimDBDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="HidrohimDBDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

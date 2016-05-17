@@ -32,8 +32,9 @@ namespace tomography
         public MainForm()
         {
             InitializeComponent();
-            tabControl1.TabPages.Remove(tabPage2);
-            solveBtn.Enabled = true;
+            tabSpeed.TabPages.Remove(tabPage2);
+            solveBtn.Enabled = false;
+            drawButton.Enabled = false;
         }
 
         private void PlotPanel_Load(object sender, EventArgs e)
@@ -90,6 +91,13 @@ namespace tomography
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            // TODO: This line of code loads data into the 'hidrohimDBDataSet.speeds' table. You can move, or remove it, as needed.
+            try {
+                this.speedsTableAdapter.Fill(this.hidrohimDBDataSet.speeds);
+            } catch (Exception ex)
+            {
+                //Do nothing (
+            }
             this.wellsTableAdapter.FillBy(this.hidrohimDBDataSet.wells);
         }
 
@@ -178,6 +186,7 @@ namespace tomography
                     distance.Text = calcDistance(x, y, aXnum, aYnum).ToString();
                     distance.Visible = true;
                     solveBtn.Enabled = true;
+                    drawButton.Enabled = true;
                 }
 
                 bId.Text = id.ToString();
@@ -244,9 +253,9 @@ namespace tomography
             //experiment[3][3] = 3600;
             //experiment[4][1] = 5000;
             function.solve(experiment, globalN, globalM, globalK);
-            if (!tabControl1.TabPages.Contains(tabPage2))
+            if (!tabSpeed.TabPages.Contains(tabPage2))
             {
-                tabControl1.TabPages.Add(tabPage2);
+                tabSpeed.TabPages.Add(tabPage2);
             }
             else
             {
