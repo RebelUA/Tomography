@@ -3,7 +3,7 @@ using System;
 
 namespace tomography
 {
-    public class ExperimentFunction
+    public class ExperimentFunction : nzy3D.Plot3D.Builder.Mapper
     {
 
         public void solve(double[][] experiment)
@@ -13,7 +13,7 @@ namespace tomography
 
         private double[][] values;
 
-        public double f(double x, double y)
+        public override double f(double x, double y)
         {
             int i = (int) x / 10;
             int j = (int) y / 20;

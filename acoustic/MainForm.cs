@@ -1,27 +1,26 @@
-﻿using ILNumerics;
-using ILNumerics.Drawing;
-using ILNumerics.Drawing.Plotting;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Data.Common;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows.Forms;
-using tomography;
 using tomography.math;
 using acoustic;
-using acoustic.HidrohimDBDataSetTableAdapters;
+using nzy3D.Plot3D.Primitives.Axes.Layout;
+using nzy3D.Plot3D.Rendering.View;
+using nzy3D.Maths;
+using nzy3D.Plot3D.Primitives;
+using nzy3D.Plot3D.Builder;
+using nzy3D.Plot3D.Builder.Concrete;
+using nzy3D.Colors;
+using nzy3D.Colors.ColorMaps;
+using nzy3D.Chart;
+using nzy3D.Plot3D.Rendering.Canvas;
+using nzy3D.Chart.Controllers.Thread.Camera;
 
 namespace tomography
 {
     public partial class MainForm : Form
     {
 
-        private ILScene scene;
+        private CameraThreadController t;
+        private IAxeLayout axeLayout;
         private ApproximateFunction function = new ApproximateFunction();
         private ExperimentFunction expFunction = new ExperimentFunction();
 
@@ -37,57 +36,67 @@ namespace tomography
             drawButton.Enabled = false;
         }
 
-        private void PlotPanel_Load(object sender, EventArgs e)
-        {
-            scene = new ILScene() {
-  new ILPlotCube(twoDMode: false, tag: "Speed") {
-    new ILSurface((x, y) => (float) function.f(x, y),
-            xmin: 0, xmax: Math.Max(globalN, globalK) * 10 - 1, xlen: 30,
-            ymin: 0, ymax: globalM * 20 - 1, ylen: 30,
-            colormap: Colormaps.ILNumerics) {
-      UseLighting = true,
-      Children = {
-            new ILColorbar()
-      }
-    }
-  }
-};
-            scene.First<ILPlotCube>().Rotation = Matrix4.Rotation(Vector3.UnitZ, Math.PI / 2);
-            plotPanel.Scene = scene;
-            scene.MouseDoubleClick += resetView;
-        }
 
         private void resetView(object sender, MouseEventArgs e)
         {
-            scene.First<ILPlotCube>().Reset();
-            scene.First<ILPlotCube>().Rotation = Matrix4.Rotation(Vector3.UnitZ, Math.PI / 2);
         }
 
-        //private void mapPanel_Paint(object sender, PaintEventArgs e)
-        //{
-        //    Graphics g = e.Graphics;
-        //    Pen pen = new Pen(Color.Black, 1);
-        //    Brush blackBrush = new SolidBrush(Color.Black);
-        //    Brush redBrush = new SolidBrush(Color.Red);
-        //    Brush brush = new SolidBrush(Color.LightGray);
+        public void InitRenderer()
+        {
+            // Create the Renderer 3D control.
+            //Renderer3D myRenderer3D = new Renderer3D();
 
-        //    g.FillRectangle(brush, mapPanel.Bounds);
-        //    for (int i = 0; i < 10; i++)
-        //    {
-        //        DataRow row = rows[i];
-        //        if (row["coordX"].GetType().Equals(typeof(Double)) && row["coordY"].GetType().Equals(typeof(Double)))
-        //        {
-        //            float x = Convert.ToSingle(row["coordX"]) / 20;
-        //            float y = Convert.ToSingle(row["coordY"]) / 40;
-        //            g.FillEllipse(redBrush, x, y, 10, 10);
-        //            //Font font = new Font("Times New Roman", 12.0f);
-        //            //g.DrawString(i.ToString(), font, blackBrush, x - 8, y + 8);
+            //// Add the Renderer control to the panel
+            //plotPanel.Controls.Clear();
+            //plotPanel.Controls.Add(myRenderer3D);
 
-        //        }
-        //    }
-        //    pen.Dispose();
-        //    brush.Dispose();
-        //}
+            // Create a range for the graph generation
+            int x = Math.Max(globalN, globalK);
+            Range xRange = new Range(0, x * 10 - 1);
+            int xSteps = 30;//Math.Min(x * 2, 30);
+            Range yRange = new Range(0, globalM * 20 - 1);
+            int ySteps = 30;//Math.Min(globalM * 2, 30);
+
+            // Build a nice surface to display with cool alpha colors 
+            // (alpha 0.8 for surface color and 0.5 for wireframe)
+            Shape surface = Builder.buildOrthonomal(new OrthonormalGrid(xRange, xSteps, yRange, ySteps), function);
+            surface.ColorMapper = new ColorMapper(new ColorMapRainbow(), surface.Bounds.zmin, surface.Bounds.zmax, new Color(1, 1, 1, 0.8));
+            surface.FaceDisplayed = true;
+            surface.WireframeDisplayed = true;
+            surface.WireframeColor = Color.GRAY;
+            surface.WireframeColor.mul(new Color(1, 1, 1, 0.5));
+
+            // Create the chart and embed the surface within
+            Chart chart = new Chart(renderer, Quality.Nicest);
+            chart.Scene.Graph.Add(surface);
+            axeLayout = chart.AxeLayout;
+
+            // Create a mouse control
+            nzy3D.Chart.Controllers.Mouse.Camera.CameraMouseController mouse = new nzy3D.Chart.Controllers.Mouse.Camera.CameraMouseController();
+            mouse.addControllerEventListener(renderer);
+            chart.addController(mouse);
+
+            // This is just to ensure code is reentrant (used when code is not in Form_Load but another reentrant event)
+            DisposeBackgroundThread();
+
+            // Create a thread to control the camera based on mouse movements
+            t = new CameraThreadController();
+            t.addControllerEventListener(renderer);
+            mouse.addSlaveThreadController(t);
+            chart.addController(t);
+            t.Start();
+
+            // Associate the chart with current control
+            renderer.setView(chart.View);
+        }
+
+        private void DisposeBackgroundThread()
+        {
+            if ((t != null))
+            {
+                t.Dispose();
+            }
+        }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -259,7 +268,6 @@ namespace tomography
             }
             else
             {
-                PlotPanel_Load(null, null);
             }
             expFunction.solve(experiment);
         }
@@ -268,6 +276,11 @@ namespace tomography
         {
             ExactDataForm form = new ExactDataForm(expFunction, globalN, globalM, globalK);
             form.Show();
+        }
+
+        private void drawButton_Click(object sender, EventArgs e)
+        {
+            InitRenderer();
         }
     }
 }

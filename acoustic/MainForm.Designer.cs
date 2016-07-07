@@ -85,16 +85,17 @@
             this.depthBPanel = new System.Windows.Forms.Panel();
             this.depthAPanel = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.plotPanel = new ILNumerics.Drawing.ILPanel();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.label9 = new System.Windows.Forms.Label();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.speedDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.speedsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dataSet1 = new System.Data.DataSet();
             this.wellsTableAdapter = new acoustic.HidrohimDBDataSetTableAdapters.wellsTableAdapter();
             this.speedsTableAdapter = new acoustic.HidrohimDBDataSetTableAdapters.speedsTableAdapter();
-            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.speedDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label9 = new System.Windows.Forms.Label();
+            this.renderer = new nzy3D.Plot3D.Rendering.View.Renderer3D();
+            this.renderer3D2 = new nzy3D.Plot3D.Rendering.View.Renderer3D();
             this.tabSpeed.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -131,6 +132,7 @@
             this.tabPage1.Controls.Add(this.groupBox3);
             this.tabPage1.Controls.Add(this.groupBox2);
             this.tabPage1.Controls.Add(this.groupBox1);
+            this.tabPage1.Controls.Add(this.renderer3D2);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -477,7 +479,7 @@
             this.drawButton.TabIndex = 5;
             this.drawButton.Text = "Draw";
             this.drawButton.UseVisualStyleBackColor = true;
-            this.drawButton.Click += new System.EventHandler(this.PlotPanel_Load);
+            this.drawButton.Click += new System.EventHandler(this.drawButton_Click);
             // 
             // solveBtn
             // 
@@ -583,6 +585,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.renderer);
             this.tabPage2.Controls.Add(this.exactBtn);
             this.tabPage2.Controls.Add(this.mapDepthB);
             this.tabPage2.Controls.Add(this.mapDepthA);
@@ -591,7 +594,6 @@
             this.tabPage2.Controls.Add(this.depthBPanel);
             this.tabPage2.Controls.Add(this.depthAPanel);
             this.tabPage2.Controls.Add(this.panel1);
-            this.tabPage2.Controls.Add(this.plotPanel);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -609,6 +611,7 @@
             this.exactBtn.TabIndex = 9;
             this.exactBtn.Text = "Show Exact Data";
             this.exactBtn.UseVisualStyleBackColor = true;
+            this.exactBtn.Visible = false;
             this.exactBtn.Click += new System.EventHandler(this.exactBtn_Click);
             // 
             // mapDepthB
@@ -672,19 +675,6 @@
             this.panel1.Size = new System.Drawing.Size(142, 18);
             this.panel1.TabIndex = 3;
             // 
-            // plotPanel
-            // 
-            this.plotPanel.Driver = ILNumerics.Drawing.RendererTypes.OpenGL;
-            this.plotPanel.Editor = null;
-            this.plotPanel.Location = new System.Drawing.Point(144, 68);
-            this.plotPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.plotPanel.Name = "plotPanel";
-            this.plotPanel.Rectangle = ((System.Drawing.RectangleF)(resources.GetObject("plotPanel.Rectangle")));
-            this.plotPanel.ShowUIControls = false;
-            this.plotPanel.Size = new System.Drawing.Size(569, 542);
-            this.plotPanel.TabIndex = 2;
-            this.plotPanel.Timeout = ((uint)(0u));
-            // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.label9);
@@ -696,6 +686,16 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Glossary";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label9.Location = new System.Drawing.Point(8, 9);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(319, 24);
+            this.label9.TabIndex = 3;
+            this.label9.Text = "Speed of sound in different materials:";
             // 
             // dataGridView2
             // 
@@ -712,23 +712,6 @@
             this.dataGridView2.ReadOnly = true;
             this.dataGridView2.Size = new System.Drawing.Size(444, 323);
             this.dataGridView2.TabIndex = 0;
-            // 
-            // speedsBindingSource
-            // 
-            this.speedsBindingSource.DataMember = "speeds";
-            this.speedsBindingSource.DataSource = this.hidrohimDBDataSetBindingSource;
-            // 
-            // dataSet1
-            // 
-            this.dataSet1.DataSetName = "NewDataSet";
-            // 
-            // wellsTableAdapter
-            // 
-            this.wellsTableAdapter.ClearBeforeFill = true;
-            // 
-            // speedsTableAdapter
-            // 
-            this.speedsTableAdapter.ClearBeforeFill = true;
             // 
             // nameDataGridViewTextBoxColumn
             // 
@@ -748,15 +731,40 @@
             this.speedDataGridViewTextBoxColumn.ReadOnly = true;
             this.speedDataGridViewTextBoxColumn.Width = 200;
             // 
-            // label9
+            // speedsBindingSource
             // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label9.Location = new System.Drawing.Point(8, 9);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(319, 24);
-            this.label9.TabIndex = 3;
-            this.label9.Text = "Speed of sound in different materials:";
+            this.speedsBindingSource.DataMember = "speeds";
+            this.speedsBindingSource.DataSource = this.hidrohimDBDataSetBindingSource;
+            // 
+            // dataSet1
+            // 
+            this.dataSet1.DataSetName = "NewDataSet";
+            // 
+            // wellsTableAdapter
+            // 
+            this.wellsTableAdapter.ClearBeforeFill = true;
+            // 
+            // speedsTableAdapter
+            // 
+            this.speedsTableAdapter.ClearBeforeFill = true;
+            // 
+            // renderer
+            // 
+            this.renderer.BackColor = System.Drawing.Color.Black;
+            this.renderer.Location = new System.Drawing.Point(225, 151);
+            this.renderer.Name = "renderer";
+            this.renderer.Size = new System.Drawing.Size(409, 380);
+            this.renderer.TabIndex = 10;
+            this.renderer.VSync = false;
+            // 
+            // renderer3D2
+            // 
+            this.renderer3D2.BackColor = System.Drawing.Color.Black;
+            this.renderer3D2.Location = new System.Drawing.Point(695, 460);
+            this.renderer3D2.Name = "renderer3D2";
+            this.renderer3D2.Size = new System.Drawing.Size(150, 128);
+            this.renderer3D2.TabIndex = 2;
+            this.renderer3D2.VSync = false;
             // 
             // MainForm
             // 
@@ -798,7 +806,6 @@
         private System.Windows.Forms.TabControl tabSpeed;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
-        private ILNumerics.Drawing.ILPanel plotPanel;
         private System.Windows.Forms.BindingSource hidrohimDBDataSetBindingSource;
         private acoustic.HidrohimDBDataSet hidrohimDBDataSet;
         private System.Windows.Forms.BindingSource wellsBindingSource;
@@ -861,5 +868,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn speedDataGridViewTextBoxColumn;
         private System.Windows.Forms.Label label9;
+        private nzy3D.Plot3D.Rendering.View.Renderer3D renderer;
+        private nzy3D.Plot3D.Rendering.View.Renderer3D renderer3D2;
     }
 }
